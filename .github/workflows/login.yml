@@ -39,12 +39,15 @@ jobs:
       - name: Step 3 Execute collection
         run: newman run ./2_login.json -g ./global.json -e ./Hom.json --delay-request 1 --reporters cli, -r htmlextra --reporter-htmlextra-export ./result/Report.html
 
-      # Upload the report as an artifact
-      - name: Upload to AWS S3
-        run: aws s3 cp ./result/Report.html s3://your-bucket-name/
-        env:
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+       # Configurar AWS CLI com os secrets
+      - name: Step 4 - Configure AWS CLI
+        run: |
+          aws configure set aws_access_key_id ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws configure set default.region us-east-1
 
+      # Fazer upload do relatório para o bucket S3
+      - name: Step 5 - Upload report to S3
+        run: aws s3 cp ./result/Report.html s3://your-bucket-name/Report.html
 
 
