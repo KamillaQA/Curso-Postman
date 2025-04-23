@@ -52,8 +52,3 @@ jobs:
           aws configure set aws_secret_access_key ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws configure set default.region us-east-1
 
-      # Fazer upload do relatório para o bucket S3
-      - name: Step 5 - Upload report to S3
-        run: aws s3 cp ./result/Report.html s3://your-bucket-name/Report.html
-
-
