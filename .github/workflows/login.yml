@@ -36,8 +36,14 @@ jobs:
         run: sudo npm install -g newman-reporter-htmlextra
         
       # Runs a set of commands using the runner's shell
-      - name: Step 3 Execute collection
-        run: newman run ./2_login.json -g ./global.json -e ./Hom.json --delay-request 1 --reporters cli, -r htmlextra --reporter-htmlextra-export ./result/Report.html
+      - name: Step 3 - Run Postman Collection
+        run: |
+          newman run ./2_login.json -g ./global.json -e ./postman.json \
+          --delay-request 1 \
+          --reporters cli,htmlextra \
+          --reporter-htmlextra-export ./result/Report.html \
+          --reporter-htmlextra-skipAssets
+
 
        # Configurar AWS CLI com os secrets
       - name: Step 4 - Configure AWS CLI
