@@ -43,7 +43,8 @@ jobs:
           --reporters cli,htmlextra \
           --reporter-htmlextra-export ./result/Report.html \
           --reporter-htmlextra-skipAssets
-
+      - name: Debug - List arquivos gerados
+        run: ls -R ./result
 
        # Configurar AWS CLI com os secrets
       - name: Step 4 - Configure AWS CLI
